@@ -3,7 +3,7 @@
 # Importing the libraries
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
-import numpy as np
+# import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -27,18 +27,23 @@ sc_y = StandardScaler()
 y_train = sc_y.fit_transform(y_train)"""
 
 # Fitting Random Forest Regression to the dataset
-regressor = RandomForestRegressor(n_estimators=300, random_state=0)
+regressor = RandomForestRegressor(n_estimators=100, random_state=0)
 regressor.fit(x_train, y_train)
 
 # predictions
 y_pred = regressor.predict(x_test)
+print(y_pred)
+
+plt.plot(x_test, y_pred, color='blue')
+plt.plot(x_test, y_test, color='red')
+plt.show()
 
 # Visualising the Random Forest Regression results (higher resolution)
-x_grid = np.arange(min(x_train), max(x_train), 0.01)
+'''x_grid = np.arange(min(x_train), max(x_train), 0.01)
 x_grid = x_grid.reshape((len(x_grid), 1))
 plt.scatter(x_train, y_train, color='red')
 plt.plot(x_grid, regressor.predict(x_grid), color='blue')
 plt.title('Traffic Prediction (Random Forest)')
 plt.xlabel('Traffic')
 plt.ylabel('Time')
-plt.show()
+plt.show()'''
