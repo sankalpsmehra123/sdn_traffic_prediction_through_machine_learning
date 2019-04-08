@@ -12,7 +12,7 @@ dataset = pd.read_csv(
     '/home/shadowziyus/Documents/'
     'SDN-Traffic-Prediction-Through-Machine-Learning/Dataset.csv')
 x = dataset.iloc[:, 1:-1].values
-y = dataset.iloc[:, 6].values
+y = dataset.iloc[:, 4].values
 
 # Splitting the dataset into the Training set and Test set
 x_train, x_test, y_train, y_test = train_test_split(
@@ -32,18 +32,25 @@ regressor.fit(x_train, y_train)
 
 # predictions
 y_pred = regressor.predict(x_test)
-print(y_pred)
 
-plt.plot(x_test, y_pred, color='blue')
-plt.plot(x_test, y_test, color='red')
+# seprating
+sec = x_test[:, 0]
+
+# Visualizing Random Forest for the dataset
+plt.scatter(sec, y_pred, color='blue')
+plt.savefig(
+    '/home/shadowziyus/Documents/'
+    'SDN-Traffic-Prediction-Through-Machine-Learning/predicted.png')
+plt.show()
+plt.scatter(sec, y_test, color='red')
+plt.savefig(
+    '/home/shadowziyus/Documents/'
+    'SDN-Traffic-Prediction-Through-Machine-Learning/actual.png')
 plt.show()
 
-# Visualising the Random Forest Regression results (higher resolution)
-'''x_grid = np.arange(min(x_train), max(x_train), 0.01)
-x_grid = x_grid.reshape((len(x_grid), 1))
-plt.scatter(x_train, y_train, color='red')
-plt.plot(x_grid, regressor.predict(x_grid), color='blue')
-plt.title('Traffic Prediction (Random Forest)')
-plt.xlabel('Traffic')
-plt.ylabel('Time')
-plt.show()'''
+error = y_pred - y_test
+plt.scatter(sec, error, color='black')
+plt.savefig(
+    '/home/shadowziyus/Documents/'
+    'SDN-Traffic-Prediction-Through-Machine-Learning/error.png')
+plt.show()
